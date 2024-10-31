@@ -9,10 +9,11 @@ import HomeScreen from './screens/Home';
 import TermsAndConditionsScreen from './screens/TermsAndConditions';
 import HealthMonitoringScreen from './screens/HealthMonitoring';
 import VirtualConsultationScreen from './screens/VirtualConsultation';
-import HealthEducationScreen from './screens/HealthEducation';
+import HealthEducationScreen from './screens/EducationalContent.js ';
 import SettingsScreen from './screens/Settings';
-import CommunityScreen from './screens/Community';
-import Icon from 'react-native-vector-icons/Ionicons'; 
+import EmergencyAssistance from './screens/EmergencyAssistance'; // Make sure this file exists
+import CommunityScreen from './screens/Community'; // Make sure this file exists
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator(); // Initialize Tab Navigator
@@ -31,16 +32,16 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen 
-        name="Monitor" 
-        component={HealthMonitoringScreen} 
+        name="Analysis" 
+        component={HealthMonitoringScreen} // Adjust this to the correct component
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="heart-outline" color={color} size={size} /> // Health Monitoring icon
+            <Icon name="pulse-outline" color={color} size={size} /> // Symptom Analysis icon
           ),
         }}
       />
       <Tab.Screen 
-        name="Consultation" 
+        name="Consultations" 
         component={VirtualConsultationScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -53,16 +54,16 @@ const TabNavigator = () => {
         component={HealthEducationScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="book-outline" color={color} size={size} /> // Health Education icon
+            <Icon name="book-outline" color={color} size={size} /> // Educational Content icon
           ),
         }}
       />
       <Tab.Screen 
-        name="Community" 
-        component={CommunityScreen} 
+        name="Emergency" 
+        component={EmergencyAssistance} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="people-outline" color={color} size={size} /> // Community icon
+            <Icon name="alert-circle-outline" color={color} size={size} /> // Emergency Assistance icon
           ),
         }}
       />
