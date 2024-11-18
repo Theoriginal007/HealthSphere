@@ -9,14 +9,14 @@ import HomeScreen from './screens/Home';
 import TermsAndConditionsScreen from './screens/TermsAndConditions';
 import HealthMonitoringScreen from './screens/HealthMonitoring';
 import VirtualConsultationScreen from './screens/VirtualConsultation';
-import HealthEducationScreen from './screens/EducationalContent.js ';
+import HealthEducationScreen from './screens/EducationalContent';
 import SettingsScreen from './screens/Settings';
-import EmergencyAssistance from './screens/EmergencyAssistance'; // Make sure this file exists
-import CommunityScreen from './screens/Community'; // Make sure this file exists
+import EmergencyAssistance from './screens/EmergencyAssistance';
+import CommunityScreen from './screens/Community'; 
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import Toast from 'react-native-toast-message';
 const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator(); // Initialize Tab Navigator
+const Tab = createBottomTabNavigator();
 
 // Create Tab Navigator component
 const TabNavigator = () => {
@@ -27,16 +27,16 @@ const TabNavigator = () => {
         component={HomeScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home-outline" color={color} size={size} /> // Home icon
+            <Icon name="home-outline" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen 
-        name="Analysis" 
-        component={HealthMonitoringScreen} // Adjust this to the correct component
+        name="Monitoring" 
+        component={HealthMonitoringScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="pulse-outline" color={color} size={size} /> // Symptom Analysis icon
+            <Icon name="pulse-outline" color={color} size={size} />
           ),
         }}
       />
@@ -45,7 +45,7 @@ const TabNavigator = () => {
         component={VirtualConsultationScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="chatbubble-outline" color={color} size={size} /> // Virtual Consultation icon
+            <Icon name="chatbubble-outline" color={color} size={size} />
           ),
         }}
       />
@@ -54,7 +54,7 @@ const TabNavigator = () => {
         component={HealthEducationScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="book-outline" color={color} size={size} /> // Educational Content icon
+            <Icon name="book-outline" color={color} size={size} />
           ),
         }}
       />
@@ -63,7 +63,16 @@ const TabNavigator = () => {
         component={EmergencyAssistance} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="alert-circle-outline" color={color} size={size} /> // Emergency Assistance icon
+            <Icon name="alert-circle-outline" color={color} size={size} />
+          ),
+        }}
+      />
+         <Tab.Screen 
+        name="Community" 
+        component={CommunityScreen} 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="people-outline" color={color} size={size} />
           ),
         }}
       />
@@ -72,13 +81,15 @@ const TabNavigator = () => {
         component={SettingsScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="settings-outline" color={color} size={size} /> // Settings icon
+            <Icon name="settings-outline" color={color} size={size} />
           ),
         }}
       />
+    
     </Tab.Navigator>
   );
 };
+
 
 // Main App Component
 export default function App() {
@@ -91,7 +102,7 @@ export default function App() {
         <Stack.Screen 
           name="Home" 
           component={TabNavigator} 
-          options={{ headerShown: false }} // Hide header for TabNavigator
+          options={{ headerShown: false }} 
         />
         <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} />
       </Stack.Navigator>
