@@ -12,9 +12,17 @@ import VirtualConsultationScreen from './screens/VirtualConsultation';
 import HealthEducationScreen from './screens/EducationalContent';
 import SettingsScreen from './screens/Settings';
 import EmergencyAssistance from './screens/EmergencyAssistance';
-import CommunityScreen from './screens/Community'; 
+import CommunityScreen from './screens/Community';
+import ExpertPage from './pages/ExpertPage';
+import LiveYogaPage from './pages/LiveYogaPage';
+import MentalHealthPage from './pages/MentalHealthPage';
+import NewsPage from './pages/NewsPage';
+import PollPage from './pages/PollPage';
+import QuotePage from './pages/QuotePage';
+import TipPage from './pages/TipPage';
+import WorkoutPage from './pages/WorkoutPage';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Toast from 'react-native-toast-message';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -67,7 +75,7 @@ const TabNavigator = () => {
           ),
         }}
       />
-         <Tab.Screen 
+      <Tab.Screen 
         name="Community" 
         component={CommunityScreen} 
         options={{
@@ -85,11 +93,9 @@ const TabNavigator = () => {
           ),
         }}
       />
-    
     </Tab.Navigator>
   );
 };
-
 
 // Main App Component
 export default function App() {
@@ -105,6 +111,15 @@ export default function App() {
           options={{ headerShown: false }} 
         />
         <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} />
+        {/* Add Pages for Navigation */}
+        <Stack.Screen name="ExpertPage" component={ExpertPage} />
+        <Stack.Screen name="LiveYogaPage" component={LiveYogaPage} />
+        <Stack.Screen name="MentalHealthPage" component={MentalHealthPage} />
+        <Stack.Screen name="NewsPage" component={NewsPage} />
+        <Stack.Screen name="PollPage" component={PollPage} />
+        <Stack.Screen name="QuotePage" component={QuotePage} />
+        <Stack.Screen name="TipPage" component={TipPage} />
+        <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

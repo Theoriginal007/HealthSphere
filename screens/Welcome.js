@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Button, ImageBackground } from 'react-native';
 export default function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground 
-      source={require('../images/Welcome.jpeg')} 
+      source={require('../images/welcome.jpg')} 
       style={styles.background}
       resizeMode="cover"
     >

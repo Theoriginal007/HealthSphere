@@ -1,72 +1,161 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import HealthMonitoring from './HealthMonitoring'; // Ensure the path is correct
-import VirtualConsultation from './VirtualConsultation'; // Ensure the path is correct
-import MedicationTracker from './MedicationTracker'; // Ensure the path is correct
-import Settings from './Settings'; // Ensure the path is correct
+import React, { useState } from 'react';
+import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, TextInput, Modal, Share } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native'; // Import navigation hook
 
-const Stack = createStackNavigator();
+const posts = [
+  { id: '1', image: require('../images/healthyfood.jpg'), title: 'Healthy Eating Tips', description: 'Boost your immunity with these foods.', type: 'tip' },
+  { id: '2', image: require('../images/workout.jpg'), title: 'Workout Motivation', description: 'Stay active with these simple exercises.', type: 'workout' },
+  { id: '3', image: require('../images/mentalhealth.jpg'), title: 'Mental Health Awareness', description: 'Manage stress effectively.', type: 'mental' },
+  { id: '4', image: require('../images/doctor.jpg'), title: 'Meet the Experts', description: 'Find top-rated doctors.', type: 'expert' },
+  { id: '5', image: require('../images/news.jpg'), title: 'Trending Health News', description: 'Latest updates in healthcare.', type: 'news' },
+  { id: '6', image: require('../images/quotes.jpg'), title: 'Daily Motivation', description: '"Your body hears everything your mind says."', type: 'quote' },
+  { id: '7', image: require('../images/poll.jpg'), title: 'Poll: Best Diet?', description: 'What diet works best for you?', type: 'poll' },
+  { id: '8', image: require('../images/meditation.jpg'), title: 'Live Yoga Session', description: 'Join our live session today!', type: 'live' },
+];
 
-// Home Screen Component
-export default function HomeScreen({ navigation }) {
-  return (
-    <View style={styles.container}>
-      {/* Search Bar Section */}
-      <TextInput 
-        style={styles.searchBar}
-        placeholder="Search for health information, doctors, or services..."
-        onSubmitEditing={(event) => handleSearch(event.nativeEvent.text)}
-      />
+const HomeScreen = () => {
+  const [likedPosts, setLikedPosts] = useState({});
+  const [commentsVisible, setCommentsVisible] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [comments, setComments] = useState({});
+  const [newComment, setNewComment] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const navigation = useNavigation(); // Use navigation hook
 
-      {/* Optional: You can add more content here if needed */}
-      <Text style={styles.sectionTitle}>Welcome to the Health App</Text>
+  const filteredPosts = posts.filter(post =>
+    post.title.toLowerCase().includes(searchText.toLowerCase()) ||
+    post.description.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const toggleLike = (id) => {
+    setLikedPosts((prevLikes) => {
+      const newLikes = { ...prevLikes };
+      newLikes[id] = (newLikes[id] || 0) + 1;
+      return newLikes;
+    });
+  };
+
+  const toggleComments = (postId) => {
+    setSelectedPost(postId);
+    setCommentsVisible(!commentsVisible);
+  };
+
+  const addComment = () => {
+    if (newComment.trim()) {
+      setComments((prevComments) => ({
+        ...prevComments,
+        [selectedPost]: [...(prevComments[selectedPost] || []), { text: newComment, time: new Date().toLocaleTimeString() }],
+      }));
+      setNewComment('');
+    }
+  };
+
+  const sharePost = async (post) => {
+    try {
+      await Share.share({
+        message: `${post.title}\n${post.description}`,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const renderItem = ({ item }) => (
+    <View style={styles.postContainer}>
+      <Image source={item.image} style={styles.postImage} />
+      <Text style={styles.postTitle}>{item.title}</Text>
+      <Text style={styles.postDescription}>{item.description}</Text>
+      <View style={styles.actions}>
+        <TouchableOpacity onPress={() => toggleLike(item.id)}>
+          <Icon name={likedPosts[item.id] ? "heart" : "heart-outline"} size={20} color="#ff4757" />
+          <Text style={styles.likesCount}>{likedPosts[item.id] || 0} Likes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => toggleComments(item.id)}>
+          <Icon name="chatbubble-outline" size={20} color="#1e90ff" />
+          <Text style={styles.commentsCount}>{(comments[item.id] || []).length} Comments</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => sharePost(item)}>
+          <Icon name="share-social-outline" size={20} color="#1e90ff" />
+        </TouchableOpacity>
+        {/* Navigate to the respective page based on post type */}
+        <TouchableOpacity onPress={() => navigation.navigate(`${item.type}Page`)}>
+          <Text style={styles.linkText}>Read more</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
-}
+  
 
-// Example search handling function
-const handleSearch = (query) => {
-  console.log(`Searching for: ${query}`);
-  // Implement search functionality here
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search health tips, workouts..."
+        value={searchText}
+        onChangeText={setSearchText}
+      />
+      <FlatList
+        data={filteredPosts}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+      />
+      
+      <Modal visible={commentsVisible} animationType="slide">
+        <View style={styles.commentSection}>
+          <TouchableOpacity style={styles.closeButton} onPress={() => setCommentsVisible(false)}>
+            <Icon name="close" size={24} color="#000" />
+          </TouchableOpacity>
+          <FlatList
+            data={comments[selectedPost] || []}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.comment}>
+                <Text style={styles.commentText}>{item.text}</Text>
+                <Text style={styles.commentTime}>{item.time}</Text>
+              </View>
+            )}
+          />
+          <Text style={styles.commentCountText}>
+            {comments[selectedPost] ? `${comments[selectedPost].length} Comments` : 'No Comments Yet'}
+          </Text>
+          <View style={styles.commentInputContainer}>
+            <TextInput
+              style={styles.commentInput}
+              placeholder="Add a comment..."
+              value={newComment}
+              onChangeText={setNewComment}
+            />
+            <TouchableOpacity onPress={addComment}>
+              <Icon name="send" size={20} color="#1e90ff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
 };
 
-// Styles
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#F5F5F5',
-    justifyContent: 'flex-start',
-  },
-  searchBar: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 16,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#333',
-  },
+  container: { flex: 1, backgroundColor: '#f8f9fa', padding: 10 },
+  searchBar: { backgroundColor: '#fff', padding: 10, borderRadius: 8, marginBottom: 10 },
+  postContainer: { backgroundColor: '#ffffff', borderRadius: 10, padding: 10, marginBottom: 10, elevation: 3 },
+  postImage: { width: '100%', height: 150, borderRadius: 10, resizeMode: 'cover' },
+  postTitle: { fontSize: 16, fontWeight: 'bold', marginVertical: 5 },
+  postDescription: { fontSize: 14, color: '#555' },
+  actions: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 },
+  likesCount: { fontSize: 12, color: '#555' },
+  commentsCount: { fontSize: 12, color: '#555' },
+  commentSection: { flex: 0.5, backgroundColor: '#fff', padding: 20 },
+  closeButton: { alignSelf: 'flex-end', padding: 10 },
+  comment: { borderBottomWidth: 1, borderBottomColor: '#ddd', paddingVertical: 5 },
+  commentText: { fontSize: 14 },
+  commentTime: { fontSize: 12, color: '#888' },
+  commentInputContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 10 },
+  commentInput: { flex: 1, borderBottomWidth: 1, borderBottomColor: '#ccc', padding: 5, marginRight: 10 },
+  commentCountText: { fontSize: 14, marginVertical: 10, color: '#555' },
+  linkText: { fontSize: 14, color: '#1e90ff' },
 });
 
-// App Component with Navigation
-export function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="HealthMonitoring" component={HealthMonitoring} />
-        <Stack.Screen name="VirtualConsultation" component={VirtualConsultation} />
-        <Stack.Screen name="MedicationTracker" component={MedicationTracker} />
-        <Stack.Screen name="Settings" component={Settings} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+export default HomeScreen;

@@ -18,7 +18,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <ImageBackground 
-      source={require('../images/Welcome.jpeg')} // Replace with your image path
+      source={require('../images/welcome.jpg')} // Replace with your image path
       style={styles.background}
       resizeMode="cover"
     >

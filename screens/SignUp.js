@@ -40,7 +40,7 @@ export default function SignUpScreen({ navigation }) {
 
   return (
     <ImageBackground 
-      source={require('../images/Welcome.jpeg')} 
+      source={require('../images/welcome.jpg')} 
       style={styles.background}
       resizeMode="cover"
     >
