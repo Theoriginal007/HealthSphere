@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
-const PollPage = () => {
+const NewsPageScreen= () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.post}>
-        <Image source={require('../images/poll.jpg')} style={styles.image} />
-        <Text style={styles.title}>Poll: Best Diet?</Text>
-        <Text style={styles.description}>What diet works best for you?</Text>
+        <Image source={require('../images/news.jpg')} style={styles.image} />
+        <Text style={styles.title}>Trending Health News</Text>
+        <Text style={styles.description}>Latest updates in healthcare.</Text>
       </View>
       {/* Add more posts or static content here */}
     </ScrollView>
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PollPage;
+export default NewsPageScreen;

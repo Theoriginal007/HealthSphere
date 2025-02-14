@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
-const TipPage = () => {
+const MentalHealthPageScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.post}>
-        <Image source={require('../images/healthyfood.jpg')} style={styles.image} />
-        <Text style={styles.title}>Healthy Eating Tips</Text>
-        <Text style={styles.description}>Boost your immunity with these foods.</Text>
+        <Image source={require('../images/mentalhealth.jpg')} style={styles.image} />
+        <Text style={styles.title}>Mental Health Awareness</Text>
+        <Text style={styles.description}>Manage stress effectively.</Text>
       </View>
       {/* Add more posts or static content here */}
     </ScrollView>
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TipPage;
+export default MentalHealthPageScreen;

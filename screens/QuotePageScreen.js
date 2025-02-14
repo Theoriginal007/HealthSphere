@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
-const QuotePage = () => {
+const QuotePageScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.post}>
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuotePage;
+export default QuotePageScreen;

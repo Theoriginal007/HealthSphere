@@ -13,14 +13,14 @@ import HealthEducationScreen from './screens/EducationalContent';
 import SettingsScreen from './screens/Settings';
 import EmergencyAssistance from './screens/EmergencyAssistance';
 import CommunityScreen from './screens/Community';
-import ExpertPage from './pages/ExpertPage';
-import LiveYogaPage from './pages/LiveYogaPage';
-import MentalHealthPage from './pages/MentalHealthPage';
-import NewsPage from './pages/NewsPage';
-import PollPage from './pages/PollPage';
-import QuotePage from './pages/QuotePage';
-import TipPage from './pages/TipPage';
-import WorkoutPage from './pages/WorkoutPage';
+import ExpertPageScreen from './screens/ExpertPageScreen';  // Corrected import
+import LiveYogaPageScreen from './screens/LiveYogaPageScreen';  // Corrected import
+import MentalHealthPageScreen from './screens/MentalHealthPageScreen';  // Corrected import
+import NewsPageScreen from './screens/NewsPageScreen';  // Corrected import
+import PollPageScreen from './screens/PollPageScreen';  // Corrected import
+import QuotePageScreen from './screens/QuotePageScreen';  // Corrected import
+import TipPageScreen from './screens/TipPageScreen';  // Corrected import
+import WorkoutPageScreen from './screens/WorkoutPageScreen';  // Corrected import
 import BookAppointmentScreen from './screens/BookAppointmentScreen';
 import AISymptomCheckerScreen from './screens/AISymptomCheckerScreen';
 import EmergencyConsultationScreen from './screens/EmergencyConsultationScreen';
@@ -125,14 +125,14 @@ export default function App() {
         <Stack.Screen name="ChatWithDoctorScreen" component={ChatWithDoctorScreen} />
         <Stack.Screen name="HealthRecordsScreen" component={HealthRecordsScreen} />
         {/* Add Pages for Navigation */}
-        <Stack.Screen name="ExpertPage" component={ExpertPage} />
-        <Stack.Screen name="LiveYogaPage" component={LiveYogaPage} />
-        <Stack.Screen name="MentalHealthPage" component={MentalHealthPage} />
-        <Stack.Screen name="NewsPage" component={NewsPage} />
-        <Stack.Screen name="PollPage" component={PollPage} />
-        <Stack.Screen name="QuotePage" component={QuotePage} />
-        <Stack.Screen name="TipPage" component={TipPage} />
-        <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
+        <Stack.Screen name="ExpertPageScreen" component={ExpertPageScreen} />
+        <Stack.Screen name="LiveYogaPageScreen" component={LiveYogaPageScreen} />
+        <Stack.Screen name="MentalHealthPageScreen" component={MentalHealthPageScreen} />
+        <Stack.Screen name="NewsPageScreen" component={NewsPageScreen} />
+        <Stack.Screen name="PollPageScreen" component={PollPageScreen} />
+        <Stack.Screen name="QuotePageScreen" component={QuotePageScreen} />
+        <Stack.Screen name="TipPageScreen" component={TipPageScreen} />
+        <Stack.Screen name="WorkoutPageScreen" component={WorkoutPageScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

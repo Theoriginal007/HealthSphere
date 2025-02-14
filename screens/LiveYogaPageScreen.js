@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
-const LiveYogaPage = () => {
+const LiveYogaPageScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.post}>
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LiveYogaPage;
+export default LiveYogaPageScreen;

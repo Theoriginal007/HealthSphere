@@ -28,6 +28,41 @@ const HomeScreen = () => {
     post.description.toLowerCase().includes(searchText.toLowerCase())
   );
 
+  const handlePress = (type) => {
+    console.log('Navigating to type:', type);
+    
+    switch(type) {
+      case 'workout':
+        navigation.navigate('WorkoutPageScreen');
+        break;
+      case 'mental':
+        navigation.navigate('MentalHealthPageScreen');
+        break;
+      case 'expert':
+        navigation.navigate('ExpertPageScreen');
+        break;
+      case 'news':
+        navigation.navigate('NewsPageScreen');
+        break;
+      case 'quote':
+        navigation.navigate('QuotePageScreen');
+        break;
+      case 'poll':
+        navigation.navigate('PollPageScreen');
+        break;
+      case 'live':
+        navigation.navigate('LiveYogaPageScreen');
+        break;
+      case 'tip':
+        navigation.navigate('TipPageScreen');
+        break;
+      default:
+        console.log('No screen for this type');
+        break;
+    }
+  };
+  
+
   const toggleLike = (id) => {
     setLikedPosts((prevLikes) => {
       const newLikes = { ...prevLikes };
@@ -45,7 +80,10 @@ const HomeScreen = () => {
     if (newComment.trim()) {
       setComments((prevComments) => ({
         ...prevComments,
-        [selectedPost]: [...(prevComments[selectedPost] || []), { text: newComment, time: new Date().toLocaleTimeString() }],
+        [selectedPost]: [
+          ...(prevComments[selectedPost] || []),
+          { text: newComment, time: new Date().toLocaleTimeString() },
+        ],
       }));
       setNewComment('');
     }
@@ -61,31 +99,31 @@ const HomeScreen = () => {
     }
   };
 
-  const renderItem = ({ item }) => (
-    <View style={styles.postContainer}>
-      <Image source={item.image} style={styles.postImage} />
-      <Text style={styles.postTitle}>{item.title}</Text>
-      <Text style={styles.postDescription}>{item.description}</Text>
-      <View style={styles.actions}>
-        <TouchableOpacity onPress={() => toggleLike(item.id)}>
-          <Icon name={likedPosts[item.id] ? "heart" : "heart-outline"} size={20} color="#ff4757" />
-          <Text style={styles.likesCount}>{likedPosts[item.id] || 0} Likes</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => toggleComments(item.id)}>
-          <Icon name="chatbubble-outline" size={20} color="#1e90ff" />
-          <Text style={styles.commentsCount}>{(comments[item.id] || []).length} Comments</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => sharePost(item)}>
-          <Icon name="share-social-outline" size={20} color="#1e90ff" />
-        </TouchableOpacity>
-        {/* Navigate to the respective page based on post type */}
-        <TouchableOpacity onPress={() => navigation.navigate(`${item.type}Page`)}>
-          <Text style={styles.linkText}>Read more</Text>
-        </TouchableOpacity>
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.postContainer}>
+        <Image source={item.image} style={styles.postImage} />
+        <Text style={styles.postTitle}>{item.title}</Text>
+        <Text style={styles.postDescription}>{item.description}</Text>
+        <View style={styles.actions}>
+          <TouchableOpacity onPress={() => toggleLike(item.id)}>
+            <Icon name={likedPosts[item.id] ? "heart" : "heart-outline"} size={20} color="#ff4757" />
+            <Text style={styles.likesCount}>{likedPosts[item.id] || 0} Likes</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => toggleComments(item.id)}>
+            <Icon name="chatbubble-outline" size={20} color="#1e90ff" />
+            <Text style={styles.commentsCount}>{(comments[item.id] || []).length} Comments</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => sharePost(item)}>
+            <Icon name="share-social-outline" size={20} color="#1e90ff" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handlePress(item.type)}>
+            <Text style={styles.linkText}>Read more</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  );
-  
+    );
+  };
 
   return (
     <View style={styles.container}>
