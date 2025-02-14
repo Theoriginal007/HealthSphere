@@ -21,6 +21,12 @@ import PollPage from './pages/PollPage';
 import QuotePage from './pages/QuotePage';
 import TipPage from './pages/TipPage';
 import WorkoutPage from './pages/WorkoutPage';
+import BookAppointmentScreen from './screens/BookAppointmentScreen';
+import AISymptomCheckerScreen from './screens/AISymptomCheckerScreen';
+import EmergencyConsultationScreen from './screens/EmergencyConsultationScreen';
+import FindNearbyClinicsScreen from './screens/FindNearbyClinicsScreen';
+import ChatWithDoctorScreen from './screens/ChatWithDoctorScreen';
+import HealthRecordsScreen from './screens/HealthRecordsScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
@@ -111,6 +117,13 @@ export default function App() {
           options={{ headerShown: false }} 
         />
         <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} />
+        {/* Add New Screens for Navigation */}
+        <Stack.Screen name="BookAppointmentScreen" component={BookAppointmentScreen} />
+        <Stack.Screen name="AISymptomCheckerScreen" component={AISymptomCheckerScreen} />
+        <Stack.Screen name="EmergencyConsultationScreen" component={EmergencyConsultationScreen} />
+        <Stack.Screen name="FindNearbyClinicsScreen" component={FindNearbyClinicsScreen} />
+        <Stack.Screen name="ChatWithDoctorScreen" component={ChatWithDoctorScreen} />
+        <Stack.Screen name="HealthRecordsScreen" component={HealthRecordsScreen} />
         {/* Add Pages for Navigation */}
         <Stack.Screen name="ExpertPage" component={ExpertPage} />
         <Stack.Screen name="LiveYogaPage" component={LiveYogaPage} />
