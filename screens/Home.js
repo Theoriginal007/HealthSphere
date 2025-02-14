@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, TextInput, Modal, Share } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native'; // Import navigation hook
+import { useNavigation } from '@react-navigation/native'; 
 
 const posts = [
   { id: '1', image: require('../images/healthyfood.jpg'), title: 'Healthy Eating Tips', description: 'Boost your immunity with these foods.', type: 'tip' },
@@ -21,7 +21,7 @@ const HomeScreen = () => {
   const [comments, setComments] = useState({});
   const [newComment, setNewComment] = useState('');
   const [searchText, setSearchText] = useState('');
-  const navigation = useNavigation(); // Use navigation hook
+  const navigation = useNavigation(); 
 
   const filteredPosts = posts.filter(post =>
     post.title.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -66,10 +66,17 @@ const HomeScreen = () => {
   const toggleLike = (id) => {
     setLikedPosts((prevLikes) => {
       const newLikes = { ...prevLikes };
-      newLikes[id] = (newLikes[id] || 0) + 1;
+      if (newLikes[id]) {
+        // Remove the like if it already exists
+        delete newLikes[id];
+      } else {
+        // Add the like if it doesn't exist
+        newLikes[id] = 1;
+      }
       return newLikes;
     });
   };
+  
 
   const toggleComments = (postId) => {
     setSelectedPost(postId);
@@ -118,7 +125,7 @@ const HomeScreen = () => {
             <Icon name="share-social-outline" size={20} color="#1e90ff" />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => handlePress(item.type)}>
-            <Text style={styles.linkText}>Read more</Text>
+          <Text style={styles.linkText}>Discover More</Text>
           </TouchableOpacity>
         </View>
       </View>
