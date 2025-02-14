@@ -1,5 +1,3 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
 # dependencies
 node_modules/
 
@@ -19,7 +17,7 @@ web-build/
 # Metro
 .metro-health-check*
 
-# debug
+# Debug
 npm-debug.*
 yarn-debug.*
 yarn-error.*
@@ -28,8 +26,44 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
+# Local env files
+.env*
 .env*.local
 
-# typescript
+# Typescript
 *.tsbuildinfo
+
+# Android
+android/app/build/
+
+# iOS
+ios/Pods/
+ios/build/
+ios/.bundle/
+
+# Build files
+*.apk
+*.aab
+*.ipa
+*.app
+*.dmg
+
+# JetBrains IDEs
+.idea/
+
+# VS Code
+.vscode/
+
+# Temporary files
+*.swp
+*.swo
+
+# Log files
+*.log
+
+# Expo development builds
+.expo/
+.expo-shared/
+
+# React Native packager
+.react-native-packager-cache/
